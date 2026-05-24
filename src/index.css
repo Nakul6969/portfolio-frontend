@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg: #030303;
+  --bg-elevated: rgba(18, 18, 18, 0.82);
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #f5f5f5;
+  --muted: #a3a3a3;
+  --accent: #ffffff;
+  --accent-2: #d4d4d4;
+  --accent-3: #737373;
+  --shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.14), transparent 24%),
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 20%),
+      radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.06), transparent 28%),
+      linear-gradient(180deg, #010101 0%, #0a0a0a 46%, #020202 100%);
+    font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: rgba(255, 255, 255, 0.24);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply relative overflow-hidden;
+  }
+
+  .site-backdrop {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 95%);
+  }
+
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.08;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.75) 0.6px, transparent 0.8px),
+      radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.6) 0.8px, transparent 1px),
+      radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.5) 0.7px, transparent 0.9px);
+    background-size: 160px 160px;
+  }
+
+  .section-shell {
+    @apply relative mx-auto w-full max-w-7xl px-6 md:px-8;
+  }
+
+  .section-heading {
+    @apply mb-14 text-center;
+  }
+
+  .eyebrow {
+    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-300;
+    backdrop-filter: blur(14px);
+  }
+
+  .display-name {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  .gradient-text {
+    background-image: linear-gradient(120deg, #ffffff 0%, #f5f5f5 22%, #bfbfbf 55%, #ffffff 100%);
+    @apply bg-clip-text text-transparent;
+    background-size: 220% 220%;
+    animation: gradientShift 10s ease infinite;
+  }
+
+  .glass-panel {
+    @apply rounded-[28px] border border-white/10 bg-white/[0.06];
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(22px);
+  }
+
+  .soft-card {
+    @apply rounded-[24px] border border-white/10 bg-white/[0.045];
+    box-shadow: 0 16px 50px rgba(2, 6, 23, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .section-glow::before {
+    content: '';
+    position: absolute;
+    inset: auto 10% -10% 10%;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 68%);
+    filter: blur(35px);
+    z-index: -1;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition duration-300;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(126, 126, 126, 0.28), rgba(255, 255, 255, 0.16));
+    box-shadow: 0 16px 40px rgba(255, 255, 255, 0.08);
+  }
+
+  .primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 50px rgba(255, 255, 255, 0.12);
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-7 py-3.5 text-sm font-semibold text-slate-100 transition duration-300;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+  }
+
+  .secondary-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .status-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-200;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #4ade80;
+    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.16);
+  }
+
+  .hover-lift {
+    @apply transition duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
